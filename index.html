@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="jp">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock</title>
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            font-family: sans-serif;
+        }
+        main {
+            width: 100%;
+            height: 30%;
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            margin: auto;
+            text-align: center;
+        }
+        .time1 {
+            font-size: 80px;
+        }
+        .time2 {
+            color: #626262;
+        }
+    </style>
+    <link rel="manifest" href="/manifest.json">
+    <script src="service-worker.js"></script>
+    <script>
+        if('serviceWorker' in navigator){
+            navigator.serviceWorker.register('/service-worker.js').then(function(){
+                console.log("Service Worker is registered!!");
+            });
+        }
+
+        function time1() {
+            var nowTime = new Date();
+            var nowHour = set2fig(nowTime.getHours())
+            var nowMin  = set2fig(nowTime.getMinutes())
+            var nowSec  = set2fig(nowTime.getSeconds())
+            var nowne = set2fig(nowTime.getFullYear())
+            var nowmonth = set2fig(nowTime.getMonth())
+            var nowdate = set2fig(nowTime.getDate())
+            var nowyb = [ "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" ][nowTime.getDay()]
+            var msg = nowHour + ":" + nowMin + ":" + nowSec;
+            var msg2 = nowne + "/" + String(Number(nowmonth) + 1) + "/" + nowdate + " " + nowyb
+            document.getElementById("time1").innerHTML = msg
+            document.getElementById("time2").innerHTML = msg2
+        }
+
+        function set2fig(num) {
+            var ret;
+            if( num < 10 ) { ret = "0" + num; }
+            else { ret = num; }
+            return ret;
+        }
+
+        setInterval('time1()',1000);
+    </script>
+</head>
+<body onload="time1()">
+    <main>
+        <div class="time1" id="time1"></div>
+        <div class="time2" id="time2"></div>
+    </main>
+</body>
+</html>
