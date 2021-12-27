@@ -30,11 +30,11 @@
             color: #626262;
         }
     </style>
-    <link rel="manifest" href="manifest.json">
-    <script src="service-worker.js"></script>
+    <link rel="manifest" href="clockpage/manifest.json">
+    <script src="clockpage/service-worker.js"></script>
     <script>
         if('serviceWorker' in navigator){
-            navigator.serviceWorker.register('service-worker.js').then(function(){
+            navigator.serviceWorker.register('clockpage/service-worker.js').then(function(){
                 console.log("Service Worker is registered!!");
             });
         }
